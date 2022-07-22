@@ -7,7 +7,7 @@ using MoviesLibrary.Models;
 
 namespace MoviesLibrary.DAL
 {
-    public class MovieInitializer : DropCreateDatabaseIfModelChanges<MovieContext>
+    public class MovieInitializer : DropCreateDatabaseAlways<MovieContext>
     {
         protected override void Seed(MovieContext context)
         {
@@ -15,7 +15,7 @@ namespace MoviesLibrary.DAL
             {
                 new Movie
                 {
-                    MovieTitle="Equilibrium", ReleaseYear=2002, Duration=107, Imdbscore=7.4f, Metascore=33,
+                    MovieTitle="Equilibrium",ReleaseYear=2002,Duration=107,Imdbscore=74,Metascore=33,
                     Description="In an oppressive future where all forms of feeling are illegal, a man in charge of enforcing the law rises to overthrow the system and state.",
                     Poster="https://m.media-amazon.com/images/M/MV5BMTkzMzA1OTI3N15BMl5BanBnXkFtZTYwMzUyMDg5._V1_UY209_CR0,0,140,209_AL_.jpg"
                 }
