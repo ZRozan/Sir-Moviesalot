@@ -16,7 +16,6 @@ namespace MoviesLibrary.Models
         public int Metascore { get; set; }
         public string Description { get; set; }
         public string Poster { get; set; }
-        public int test { get; set; }
 
         public virtual ICollection<Genre> Genres { get; set; }
         public virtual ICollection<Director> Directors { get; set; }
