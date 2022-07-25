@@ -22,6 +22,14 @@ namespace MoviesLibrary.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<Movie>()
+                .HasMany(m => m.Genres)
+                .WithMany(m => m.Movies);
+
+            modelBuilder.Entity<Movie>()
+                .HasMany(m => m.Directors)
+                .WithMany(m => m.Movies);
         }
     }
 }

@@ -7,7 +7,7 @@ using MoviesLibrary.Models;
 
 namespace MoviesLibrary.DAL
 {
-    public class MovieInitializer : DropCreateDatabaseAlways<MovieContext>
+    public class MovieInitializer : DropCreateDatabaseIfModelChanges<MovieContext>
     {
         protected override void Seed(MovieContext context)
         {
@@ -17,19 +17,22 @@ namespace MoviesLibrary.DAL
                 {
                     Id=1, MovieTitle="Equilibrium",ReleaseYear=2002,Duration=107,Imdbscore=74,Metascore=33,
                     Description="In an oppressive future where all forms of feeling are illegal, a man in charge of enforcing the law rises to overthrow the system and state.",
-                    Poster="https://m.media-amazon.com/images/M/MV5BMTkzMzA1OTI3N15BMl5BanBnXkFtZTYwMzUyMDg5._V1_UY209_CR0,0,140,209_AL_.jpg"
+                    Poster="https://m.media-amazon.com/images/M/MV5BMTkzMzA1OTI3N15BMl5BanBnXkFtZTYwMzUyMDg5._V1_UY209_CR0,0,140,209_AL_.jpg",
+                    Genres = new List<Genre>()
                 },
                 new Movie
                 {
                     Id=2, MovieTitle="Inception",ReleaseYear=2014,Duration=169,Imdbscore=87,Metascore=74,
                     Description="A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.",
-                    Poster="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_UY209_CR0,0,140,209_AL_.jpg"
+                    Poster="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_UY209_CR0,0,140,209_AL_.jpg",
+                    Genres = new List<Genre>()
                 },
                 new Movie
                 {
                     Id=3, MovieTitle="Interstellar",ReleaseYear=2010,Duration=148,Imdbscore=88,Metascore=74,
                     Description="A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival",
-                    Poster="https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY209_CR0,0,140,209_AL_.jpg"
+                    Poster="https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY209_CR0,0,140,209_AL_.jpg",
+                    Genres = new List<Genre>()
                 }
             };
             movies.ForEach(movie => context.Movies.Add(movie));
@@ -37,9 +40,9 @@ namespace MoviesLibrary.DAL
 
             var directors = new List<Director>
             {
-                new Director { Name = "Kurt Wimmer"},
-                new Director { Name = "Christopher Nolan"},
-                new Director { Name = "Zekinha Snydero" }
+                new Director { Name = "Kurt Wimmer", Movies = new List<Movie>()},
+                new Director { Name = "Christopher Nolan", Movies = new List<Movie>()},
+                new Director { Name = "Zekinha Snydero", Movies = new List<Movie>()}
 
             };
             directors.ForEach(director => context.Directors.Add(director));
