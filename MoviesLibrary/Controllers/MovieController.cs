@@ -254,7 +254,10 @@ namespace MoviesLibrary.Controllers
         {
             try
             {
-                Movie movie = db.Movies.Find(id);
+                Movie movie = db.Movies
+                    .Include(m => m.Genres)
+                    .Where(m => m.Id == id)
+                    .Single();
                 db.Movies.Remove(movie);
                 db.SaveChanges();
             }
