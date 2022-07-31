@@ -99,7 +99,7 @@ namespace MoviesLibrary.Controllers
         {
             try
             {
-                if (selectedGenres == null)
+                if (selectedGenres != null)
                 {
                     movie.Genres = new List<Genre>();
                     foreach(var genre in selectedGenres)
@@ -112,12 +112,11 @@ namespace MoviesLibrary.Controllers
                 {
                     db.Movies.Add(movie);
                     db.SaveChanges();
-                    return View(movie);
+                    return RedirectToAction("Index");
                 }
             }
             catch (DataException)
             {
-
                 ModelState.AddModelError("", "Unable to create a new register, try again.");
             }
             PopulateSelectedGenres(movie);
