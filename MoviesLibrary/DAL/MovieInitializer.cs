@@ -40,9 +40,9 @@ namespace MoviesLibrary.DAL
 
             var directors = new List<Director>
             {
-                new Director { Name = "Kurt Wimmer", Movies = new List<Movie>()},
-                new Director { Name = "Christopher Nolan", Movies = new List<Movie>()},
-                new Director { Name = "Zekinha Snydero", Movies = new List<Movie>()}
+                new Director { Name = "Kurt Wimmer", Biography = "lalala", Picture = "kakaka"},
+                new Director { Name = "Christopher Nolan", Biography = "yada", Picture = "lada"},
+                new Director { Name = "Zekinha Snydero", Biography = "jaja", Picture = "aoshdo"}
 
             };
             directors.ForEach(director => context.Directors.Add(director));
