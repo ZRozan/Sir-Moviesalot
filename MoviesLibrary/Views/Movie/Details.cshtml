@@ -73,13 +73,10 @@
         <dd>
             <table class="table">
                 <tr>
-                    <th>Genres</th>
-                </tr>
-                <tr>
                     @foreach (var item in Model.Genres)
                     {
                         <td>
-                            @Html.DisplayFor(modelItem => item.GenreName),
+                            @Html.DisplayFor(modelItem => item.GenreName)
                         </td>
                     }
                 </tr>

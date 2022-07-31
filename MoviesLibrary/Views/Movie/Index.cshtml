@@ -1,69 +1,91 @@
-﻿@model IEnumerable<MoviesLibrary.Models.Movie>
+﻿@model PagedList.IPagedList<MoviesLibrary.Models.Movie>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Movies";
 }
 
-<h2>Index</h2>
+<h2>Movies</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "Movie", FormMethod.Get))
+{
+    <p>
+        Find by movie title: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MovieTitle)
+            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSort, currentFilter = ViewBag.Currentfilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReleaseYear)
+            @Html.ActionLink("Release Year", "Index", new { sortOrder = ViewBag.ReleaseSort, currentFilter = ViewBag.Currentfilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Duration)
+            Duration
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Imdbscore)
+            ImDb Score
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Metascore)
+            MetaScore
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Poster)
+            Genres
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MovieTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReleaseYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Duration)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Imdbscore)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Metascore)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Poster)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <p style="font-style:oblique; font-size:medium; text-align:center"><b>@Html.DisplayFor(modelItem => item.MovieTitle)</b></p>
+                <img src=@Html.DisplayFor(modelItem => item.Poster)>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Imdbscore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Metascore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @{ foreach (var genre in item.Genres)
+                    {
+                        @genre.GenreName <br/>
+                    }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
