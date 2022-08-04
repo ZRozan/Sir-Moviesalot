@@ -1,0 +1,36 @@
+﻿
+.card {
+    border: .01cm solid black;
+    border-radius: 3%;
+    padding-bottom: .2cm;
+    margin-bottom: .2cm;
+}
+
+#movie-item {
+    align-items: flex-end;
+}
+
+#movie-image-hover:hover .image {
+    transition: 0.3s ease;
+    opacity: 0.5;
+}
+
+#middle-title {
+    transition: 0.2s ease;
+    opacity: 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#movie-image-hover:hover #middle-title {
+    opacity: 0.9;
+}
+
+#middle-title {
+    background-color: blue;
+    color: white;
+}
