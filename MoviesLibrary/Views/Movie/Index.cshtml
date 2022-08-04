@@ -1,6 +1,7 @@
 ﻿@model PagedList.IPagedList<MoviesLibrary.Models.Movie>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Custom/custom-movie-list.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Movies";
@@ -19,6 +20,47 @@
         <input type="submit" value="Search" />
     </p>
 }
+
+<br />
+
+<div class="row row-cols-auto d-flex justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-auto center" id="movie-item">
+            <div class="container">
+                <div class="card" style="width: 280px">
+                    <div class="container" id="movie-image-hover">
+                        <img src="@Html.DisplayFor(modelItem => item.Poster)"
+                             class="image card-img-top px-1 py-1"
+                             alt="..." />
+                        <div class="middle" id="middle-title">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@Html.DisplayFor(modelItem => item.MovieTitle)</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">@Html.DisplayFor(modelItem => item.Directors)</li>
+                        <li class="list-group-item">@Html.DisplayFor(modelItem => item.Duration) min</li>
+                        <li class="list-group-item">
+                            @{foreach (var genre in item.Genres)
+                                {
+                                    <span>-</span>
+                                    @genre.GenreName
+                                }
+                            }
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<br />
+<br />
 
 <table class="table">
     <tr>
@@ -46,7 +88,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @*@foreach (var item in Model)
     {
         <tr>
             <td>
@@ -71,7 +113,7 @@
             <td>
                 @{ foreach (var genre in item.Genres)
                     {
-                        @genre.GenreName <br/>
+                        @genre.GenreName <br />
                     }
                 }
             </td>
@@ -81,11 +123,11 @@
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
-    }
+    }*@
 
 </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
